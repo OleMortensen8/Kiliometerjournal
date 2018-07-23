@@ -1,3 +1,4 @@
+</div>
 <footer class="page-footer dark">
         <div class="footer-copyright" style="margin-top:2px;">
             <p style="height:24px;margin-top:10px;">© <?php echo  date('Y', strtotime('Now'));  ?> Copyright</p>
