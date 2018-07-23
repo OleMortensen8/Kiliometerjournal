@@ -1,9 +1,9 @@
-<?php $sideTitlen = 'Kiliometer instastninger';
+<?php $sideTitlen = 'KiliometerJournalen i PHP';
  include('bootstrap.php');?>
     <main class="page landing-page">
         <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image4.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
             <div class="text">
-                <h2>Lorem ipsum dolor sit amet.</h2>
+                <h2>Kiliometer Log</h2>
                 <p>Intast dine Initialer og Kilometer tal her. Dine samlede Kilometer tal og data kan ses på listen</p>
                 <form action="" method="POST">
                 <label>Initialer</label><input class="form-control" name="ini" type="text">
