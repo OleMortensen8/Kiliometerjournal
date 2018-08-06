@@ -1,6 +1,7 @@
 <?php 
 class Table{
     private $table = "<p>Data kommer snart</p>";
+    private $allTogether;
     public function createTable($lists){
       $this->table = '<thead>
       <tr>
@@ -11,6 +12,7 @@ class Table{
           <th>registreret</th>
       </tr>
   </thead>'. '<tbody>';
+// make their own function/method
     foreach($lists as $list){
     $this->table .="<tr>".
         "<td>". $list["initialer"]."</td>" .
@@ -23,8 +25,17 @@ class Table{
     </form></td>".
         "</tr>";
     }
-        '</tbody>';
 
+    $this->table .= '</tbody>';
+
+// make their own function/method
+    foreach($lists as $list){
+          $this->allTogether += $list["samledeKmTal"];
+        }
+    $maaneder = array("","Januar","Febuar","Marts","April","Maj","Juni","Juli","August","Okttober","September","November","December");
+    $pos = date("n", strtotime("now"));
+    $this->table .= '<tfoot><th scope="row">Kørt på i ';
+    $this->table .= $maaneder[$pos] . '</th><td>'. $this->allTogether .' km</td></tfoot>';  
     }
 
     public function getTable(){

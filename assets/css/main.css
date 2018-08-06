@@ -150,3 +150,7 @@ button img{
         display: none;
       }
   }
+tfoot{
+  background-color:rgb(168,168,171);
+  color:#e5e5e5;
+}
