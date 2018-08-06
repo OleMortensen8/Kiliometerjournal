@@ -25,8 +25,9 @@
     }
 
     public function getDataToSql(){
-        $statement = $this->DBCONNECT()->query("SELECT * FROM kiliometerliste");
-        return $statement->fetchAll(PDO::FETCH_ASSOC); 
+        $statement = $this->DBCONNECT()->query("SELECT * FROM kiliometerliste
+        ORDER BY EntryID DESC LIMIT 5");
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function deleteEntry($id){
