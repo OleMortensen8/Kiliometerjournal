@@ -2,7 +2,7 @@
     
     private $hostname = 'mysql:host=localhost;dbname=kiliometerliste',
         $username = 'root',
-        $password = '',
+        $password = '456258',
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     );
         
