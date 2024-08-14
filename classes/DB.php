@@ -1,7 +1,7 @@
 <?php
 class DB {
 
-    private $databasePath = '/opt/htdocs/KiliometerJournal-i-PHP/kiliometerlistesqlite.db'; // Correct SQLite database path
+    private $databasePath = 'kiliometerlistesqlite.db'; // Correct SQLite database path
     private $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -20,6 +20,10 @@ class DB {
     public function sendsDataToSql($ini, $kmStart, $kmStop, $samledetal) {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
+            if ($kmStop <= $kmStart){
+                echo "kmStop kan ikke være mindre end kmStart";
+                exit;
+            }
             $statement = $pdo->prepare("INSERT INTO kiliometerliste (initialer, kmStart, kmSlut, samledeKmTal) VALUES (?, ?, ?, ?)");
             $statement->bindParam(1, $ini, PDO::PARAM_STR);
             $statement->bindParam(2, $kmStart, PDO::PARAM_INT);
@@ -31,7 +35,12 @@ class DB {
             echo 'Database connection failed';
         }
     }
-
+    public function getlastStopKm(){
+        $pdo = $this->DBCONNECT();
+        $stmt = $pdo->prepare('SELECT kmSlut FROM kiliometerliste ORDER BY EntryID DESC LIMIT 1');
+        $stmt->execute();
+        echo $stmt->fetch(PDO::FETCH_ASSOC)["kmSlut"] ?? '';
+    }
     public function getDataToSql() {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
