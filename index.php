@@ -1,4 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $sideTitlen = 'KiliometerJournalen i PHP';
 include('bootstrap.php');
 $lastStopKm = new DB();
@@ -6,6 +15,7 @@ $lastStopKm = new DB();
 <main class="page landing-page">
     <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image4.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
         <div class="text">
+            <h1><?php echo "Welcome to your dashboard!"; ?></h1>
             <h2>Kiliometer Log</h2>
             <p>Intast dine Initialer og Kilometer tal her. Dine samlede Kilometer tal og data kan ses på listen</p>
             <form action="" method="POST">
@@ -29,6 +39,6 @@ $lastStopKm = new DB();
             }
         });
     </script>
-
-    <?php include('views/footer.php'); ?>
 </main>
+<?php include('views/footer.php'); ?>
+
