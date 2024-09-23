@@ -1,4 +1,4 @@
-<?php include('bootstrap.php'); ?><main style="width:60%; margin:0 auto; margin-top: 160px;">
+<?php include('bootstrap.php'); ?><main style="width:60%; margin: 160px auto 0;">
 <!-- Canvas element for Chart.js -->
     <h1>Statisik</h1>
 <canvas id="myChart" width="250" height="80"></canvas>

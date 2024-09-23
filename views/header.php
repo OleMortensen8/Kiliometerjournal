@@ -21,6 +21,10 @@
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Kiliometer instastninger</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="features.php">Kilometer liste</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="stats.php">Statisik</a></li>
+<?php if (isset($_SESSION['user_id'])) { ?>
+    <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">LogOut</a></li>
+
+<?php  }?>
                 </ul>
         </div>
         </div>

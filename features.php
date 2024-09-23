@@ -1,4 +1,14 @@
-<?php $sideTitlen = 'KilometerJournalen i PHP'; 
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$sideTitlen = 'KilometerJournalen i PHP';
  include('bootstrap.php');?>
     <main class="page">
         <section class="clean-block features">
