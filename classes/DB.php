@@ -41,22 +41,41 @@ class DB {
         $stmt->execute();
         echo $stmt->fetch(PDO::FETCH_ASSOC)["kmSlut"] ?? '';
     }
-    public function getDataToSql() {
-        $pdo = $this->DBCONNECT();
-        if ($pdo) {
-            try {
-                $statement = $pdo->query("SELECT * FROM kiliometerliste ORDER BY EntryID DESC LIMIT 5");
-                return $statement->fetchAll();
-            } catch (PDOException $e) {
-                echo 'Query error: ' . $e->getMessage();
-                return [];
-            }
-        } else {
-            echo 'Database connection failed';
+    public function getDataToSql($limit = 5, $offset = 0) {
+    $pdo = $this->DBCONNECT();
+    if ($pdo) {
+        try {
+            $statement = $pdo->prepare("SELECT * FROM kiliometerliste ORDER BY EntryID DESC LIMIT :limit OFFSET :offset");
+            $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll();
+        } catch (PDOException $e) {
+            echo 'Query error: ' . $e->getMessage();
             return [];
         }
+    } else {
+        echo 'Database connection failed';
+        return [];
     }
+}
 
+public function getTotalEntries() {
+    $pdo = $this->DBCONNECT();
+    if ($pdo) {
+        try {
+            $statement = $pdo->query("SELECT COUNT(*) as total FROM kiliometerliste");
+            $result = $statement->fetch();
+            return $result['total'];
+        } catch (PDOException $e) {
+            echo 'Query error: ' . $e->getMessage();
+            return 0;
+        }
+    } else {
+        echo 'Database connection failed';
+        return 0;
+    }
+}
     public function deleteEntry($id) {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
