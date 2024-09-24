@@ -1,5 +1,6 @@
 <?php
 // login.php
+ob_start(); // Start output buffering
 require 'csrf.php';
 require 'bootstrap.php';
 
@@ -26,13 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Regenerate CSRF token after login
-            header("Location: index.php");
+            header("Location: /index.php");
             exit();
         } else {
             echo "Invalid username or password.";
         }
     }
 }
+ob_end_flush(); // End output buffering and flush the output
 ?>
 
 <main style="width:18%; margin: 160px auto 0;">
