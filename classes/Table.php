@@ -1,27 +1,29 @@
 <?php 
 class Table{
-    private $table = "<p>Data kommer snart</p>";
-    private $allTogether;
+    private string $table = "<p>Data kommer snart</p>";
+    private float $allTogether;
     private float $fuelConsumptionRate = 8.8; // liters per 100 km
-    private float $fuelCapacity = 44; // liters
 
-    public function getFuelConsumptionRate()
+    // private float $fuelCapacity = 44; // liters
+
+    public function getFuelConsumptionRate(): float
     {
         return $this->fuelConsumptionRate;
     }
 
-    public function getFuelCapacity()
-    {
-        return $this->fuelCapacity;
-    }
+    //  public function getFuelCapacity()
+    //  {
+    //     return $this->fuelCapacity;
+    //  }
 
-    public function calculateFuelUsed($kmDriven)
+    public function calculateFuelUsed($kmDriven): float
     {
-        $fuelUsed = ($kmDriven / 100) * $this->fuelConsumptionRate;
+        $fuelUsed = ($kmDriven / 100) * $this->getfuelConsumptionRate();
         return round($fuelUsed, 2); // Round to one decimal place
     }
 
-    public function createTable($lists){
+    public function createTable($lists): void
+    {
       $this->table = '<thead>
       <tr>
           <th>Initialer</th>
@@ -42,7 +44,7 @@ class Table{
         "<td>". $list["samledeKmTal"] ."</td>".
         "<td>". $list["dato"] ."</td>".
         "<td>" . ($kmDriven = $this->calculateFuelUsed($list["samledeKmTal"])) . " L</td>" .
-        "<td>" . round(($cost = $kmDriven * 12.89), 2) . " DKK" . "</td>" .
+        "<td>" . round(($kmDriven * 12.89), 2) . " DKK" . "</td>" .
         "<td> <form action='' method='post'>
         <button class='btn btn-danger' type='submit' name='data' value='". $list['EntryID'] ." '>Delete</button>
     </form></td>".
@@ -61,9 +63,9 @@ class Table{
     $this->table .= $maaneder[$pos] . '</th><td>'. $this->allTogether .' km</td></tfoot>';  
     }
 
-    public function getTable(){
+    public function getTable(): string
+    {
         return $this->table;
      }
 
     }
-?>
