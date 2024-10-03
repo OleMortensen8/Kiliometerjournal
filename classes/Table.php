@@ -2,6 +2,25 @@
 class Table{
     private $table = "<p>Data kommer snart</p>";
     private $allTogether;
+    private float $fuelConsumptionRate = 8.8; // liters per 100 km
+    private float $fuelCapacity = 44; // liters
+
+    public function getFuelConsumptionRate()
+    {
+        return $this->fuelConsumptionRate;
+    }
+
+    public function getFuelCapacity()
+    {
+        return $this->fuelCapacity;
+    }
+
+    public function calculateFuelUsed($kmDriven)
+    {
+        $fuelUsed = ($kmDriven / 100) * $this->fuelConsumptionRate;
+        return round($fuelUsed, 2); // Round to one decimal place
+    }
+
     public function createTable($lists){
       $this->table = '<thead>
       <tr>
@@ -10,6 +29,8 @@ class Table{
           <th>km - stop</th>
           <th>km kørt</th>
           <th>registreret</th>
+          <th>Diesel Brugt</th>
+          <th>Rute Prisen</th>
       </tr>
   </thead>'. '<tbody>';
 // make their own function/method
@@ -20,6 +41,8 @@ class Table{
         "<td>". $list["kmSlut"] ."</td>" .
         "<td>". $list["samledeKmTal"] ."</td>".
         "<td>". $list["dato"] ."</td>".
+        "<td>" . ($kmDriven = $this->calculateFuelUsed($list["samledeKmTal"])) . " L</td>" .
+        "<td>" . round(($cost = $kmDriven * 12.89), 2) . " DKK" . "</td>" .
         "<td> <form action='' method='post'>
         <button class='btn btn-danger' type='submit' name='data' value='". $list['EntryID'] ." '>Delete</button>
     </form></td>".
