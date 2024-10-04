@@ -1,7 +1,7 @@
 <?php 
 class Table{
     private string $table = "<p>Data kommer snart</p>";
-    private float $allTogether;
+    private $allTogether;
     private float $fuelConsumptionRate = 8.8; // liters per 100 km
 
     // private float $fuelCapacity = 44; // liters
