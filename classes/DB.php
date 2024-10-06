@@ -39,7 +39,7 @@ class DB {
         $pdo = $this->DBCONNECT();
         $stmt = $pdo->prepare('SELECT kmSlut FROM kiliometerliste ORDER BY EntryID DESC LIMIT 1');
         $stmt->execute();
-        echo $stmt->fetch(PDO::FETCH_ASSOC)["kmSlut"] ?? '';
+        echo $stmt->fetch(PDO::FETCH_ASSOC)["KmSlut"] ?? '';
     }
     public function getDataToSql($limit = 5, $offset = 0) {
     $pdo = $this->DBCONNECT();
