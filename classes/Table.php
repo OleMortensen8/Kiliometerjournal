@@ -2,9 +2,7 @@
 class Table{
     private string $table = "<p>Data kommer snart</p>";
     private $allTogether;
-    private float $fuelConsumptionRate = 8.8; // liters per 100 km
-
-    // private float $fuelCapacity = 44; // liters
+    private float $fuelConsumptionRate = 4.20168; // liters per 100 km
 
     public function getFuelConsumptionRate(): float
     {
@@ -22,7 +20,7 @@ class Table{
         return round($fuelUsed, 2); // Round to one decimal place
     }
 
-    public function createTable($lists): void
+    public function createTable($lists, $TotalPerMonth): void
     {
       $this->table = '<thead>
       <tr>
@@ -45,7 +43,7 @@ class Table{
         "<td>" . $list["SamledeKmTal"] . "</td>" .
         "<td>" . $list["Dato"] . "</td>" .
         "<td>" . ($kmDriven = $this->calculateFuelUsed($list["SamledeKmTal"])) . " L</td>" .
-        "<td>" . round(($kmDriven * 12.89), 2) . " DKK" . "</td>" .
+        "<td>" . round(($kmDriven * 11.89), 2) . " DKK" . "</td>" .
         "<td>" . $list["FuelRemaining"] . " L</td>" .
         "<td> <form action='' method='post'>
         <button class='btn btn-danger' type='submit' name='data' value='". $list['EntryID'] ." '>Delete</button>
@@ -55,14 +53,18 @@ class Table{
 
     $this->table .= '</tbody>';
 
-// make their own function/method
-    foreach($lists as $list){
-        $this->allTogether += $list["SamledeKmTal"];
-        }
-    $maaneder = array("","Januar","Febuar","Marts","April","Maj","Juni","Juli","August","Okttober","September","November","December");
+        // make their own function/method
+        $this->allTogether = $TotalPerMonth;
+
+
+        $maaneder = array("", "Januar", "Febuar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December");
     $pos = date("n", strtotime("now"));
-    $this->table .= '<tfoot><th scope="row">Kørt på i ';
-    $this->table .= $maaneder[$pos] . '</th><td>'. $this->allTogether .' km</td></tfoot>';  
+        $this->table .= '<tfoot class="footer-row">';
+        foreach ($TotalPerMonth as $total) {
+            $this->table .= '<tr><th scope="row">Kørt på i <br/>';
+            $this->table .= $maaneder[ltrim($total['month'], '0')] . ' ' . date('Y', strtotime('now')) . '</th><td>' . $total['total'] . ' km</td></tr>';
+        }
+        $this->table .= '</tfoot>';
     }
 
     public function getTable(): string
