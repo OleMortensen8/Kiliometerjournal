@@ -150,7 +150,24 @@ button img{
         display: none;
       }
   }
-tfoot{
+
+tfoot {
   background-color:rgb(168,168,171);
   color:#e5e5e5;
+}
+
+.footer-row {
+  display: flex;
+  sflex-direction: row;
+  justify-content: space-between;
+}
+
+.footer-row > tr:nth-child(1) {
+  background-color: rgb(41, 41, 184);
+
+}
+
+.footer-cell {
+  flex: 1;
+  text-align: center;
 }

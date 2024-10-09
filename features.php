@@ -22,6 +22,9 @@ $totalEntries = $db->getTotalEntries();
 $totalPages = ceil($totalEntries / $limit);
 
 $data = $db->getDataToSql($limit, $offset);
+
+$TotalPerMonth = $db->getTotalPerMonth();
+
 ?>
 
     <main class="page">
@@ -36,7 +39,7 @@ $data = $db->getDataToSql($limit, $offset);
                     <div class="table-responsive">
                         <div id="printableArea">
                             <table class="table">
-                                <?php $table->createTable($data);
+                                <?php $table->createTable($data, $TotalPerMonth);
                                 if ($data) {
                                     echo $table->getTable();
                                 } else {
