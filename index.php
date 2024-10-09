@@ -13,7 +13,8 @@ include('bootstrap.php');
 $lastStopKm = new DB();
 ?>
 <main class="page landing-page">
-    <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image4.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
+    <section class="clean-block clean-hero"
+             style="background-image:url('assets/img/tech/image4.jpg');color:rgba(9, 162, 255, 0.85);">
         <div class="text">
             <h1><?php echo "Welcome to your dashboard!"; ?></h1>
             <h2>Kiliometer Log</h2>
@@ -22,6 +23,10 @@ $lastStopKm = new DB();
                 <label>Initialer</label><input class="form-control" name="ini" type="text">
                 <label>Km - Start</label><input class="form-control" name="kmStart" id="kmStart" type="text" value="<?php $lastStopKm->getlastStopKm(); ?>">
                 <label>Km - Stop</label><input class="form-control" name="kmStop" type="text">
+                <button class="btn btn-danger" type="submit" name="refuel"
+                        style="display:inline-block; margin-top:25px;padding-top:10px; padding-right:10px;padding-bottom:6px;padding-left:10px;">
+                    Refuel
+                </button>
                 <button class="btn btn-primary" type="submit" name="submit" style="margin-top:25px;padding-top:10px; padding-right:10px;margin-right:251px;padding-bottom:6px;padding-left:10px;background-color:rgb(0,25,255);">Submit</button>
             </form>
         </div>
