@@ -8,8 +8,7 @@ class DB {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     );
 
-    const int FULL_TANK_CAPACITY = 45; // Assuming 45 liters as the full tank capacity
-
+    public int $full_tank_capacity = 45; // Assuming 45 liters as the full tank capacity
     public function DBCONNECT(): ?PDO
     {
         try {
@@ -49,7 +48,7 @@ class DB {
         echo $stmt->fetch(PDO::FETCH_ASSOC)["KmSlut"] ?? '';
     }
 
-    public function getDataToSql($limit = 5, $offset = 0): false|array
+    public function getDataToSql($limit = 5, $offset = 0): array
     {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
