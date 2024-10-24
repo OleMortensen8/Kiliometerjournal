@@ -26,11 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username']; // Store the username in the session
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Regenerate CSRF token after login
             header("Location: /index.php");
             exit();
         } else {
-            echo "Invalid username or password.";
+            echo 'Invalid username or password';
         }
     }
 }
