@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $samledetal = $kmStop - $kmStart;
             $Fuelused = $db->calculateFuelUsed($samledetal);
             if (isset($refuel)) {
-                $FuelRemaining = DB::FULL_TANK_CAPACITY - $Fuelused;
+                $FuelRemaining = $db->full_tank_capacity - $Fuelused;
             } else {
                 $FuelRemaining = $db->calculateSubtractedLiters($Fuelused);
             }
