@@ -20,14 +20,20 @@ $lastStopKm = new DB();
             <h2>Kiliometer Log</h2>
             <p>Intast dine Initialer og Kilometer tal her. Dine samlede Kilometer tal og data kan ses på listen</p>
             <form action="" method="POST">
-                <label>Initialer</label><input class="form-control" name="ini" type="text">
-                <label>Km - Start</label><input class="form-control" name="kmStart" id="kmStart" type="text" value="<?php $lastStopKm->getlastStopKm(); ?>">
-                <label>Km - Stop</label><input class="form-control" name="kmStop" type="text">
+                <input type="hidden" name="ini" value="<?php echo $_SESSION['username']; ?>">
+                <label>Km - Start</label>
+                <input class="form-control" name="kmStart" id="kmStart" type="text"
+                       value="<?php $lastStopKm->getlastStopKm(); ?>">
+                <label>Km - Stop</label>
+                <input class="form-control" name="kmStop" type="text">
                 <button class="btn btn-danger" type="submit" name="refuel"
                         style="display:inline-block; margin-top:25px;padding-top:10px; padding-right:10px;padding-bottom:6px;padding-left:10px;">
                     Refuel
                 </button>
-                <button class="btn btn-primary" type="submit" name="submit" style="margin-top:25px;padding-top:10px; padding-right:10px;margin-right:251px;padding-bottom:6px;padding-left:10px;background-color:rgb(0,25,255);">Submit</button>
+                <button class="btn btn-primary" type="submit" name="submit"
+                        style="margin-top:25px;padding-top:10px; padding-right:10px;margin-right:251px;padding-bottom:6px;padding-left:10px;background-color:rgb(0,25,255);">
+                    Submit
+                </button>
             </form>
         </div>
     </section>

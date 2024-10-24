@@ -53,7 +53,9 @@ class DB {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
             try {
-                $statement = $pdo->prepare("SELECT * FROM kiliometerliste ORDER BY EntryID DESC LIMIT :limit OFFSET :offset");
+                $username = $_SESSION['username']; // Get the current user's username from the session
+                $statement = $pdo->prepare("SELECT * FROM kiliometerliste WHERE Initialer = :username ORDER BY EntryID DESC LIMIT :limit OFFSET :offset");
+                $statement->bindParam(':username', $username, PDO::PARAM_STR);
                 $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
                 $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                 $statement->execute();
@@ -84,12 +86,15 @@ class DB {
         }
     }
 
-    public function getTotalEntries()
+    public function getTotalEntries(): int
     {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
             try {
-                $statement = $pdo->query("SELECT COUNT(*) as total FROM kiliometerliste");
+                $username = $_SESSION['username']; // Get the current user's username from the session
+                $statement = $pdo->prepare("SELECT COUNT(*) as total FROM kiliometerliste WHERE Initialer = :username");
+                $statement->bindParam(':username', $username, PDO::PARAM_STR);
+                $statement->execute();
                 $result = $statement->fetch();
                 return $result['total'];
             } catch (PDOException $e) {
@@ -138,14 +143,16 @@ class DB {
         return $lastFuelRemaining - $newFuelRemaining;
     }
 
-    public function getTotalPerMonth()
+    public function getTotalPerMonth(): array
     {
         $pdo = $this->DBCONNECT();
         if ($pdo) {
             try {
-                $statement = $pdo->query("SELECT strftime('%m', Dato) as month, SUM(SamledeKmTal) as total FROM kiliometerliste WHERE strftime('%Y', Dato) = strftime('%Y', 'now') GROUP BY month");
-                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-                return $result;
+                $username = $_SESSION['username']; // Get the current user's username from the session
+                $statement = $pdo->prepare("SELECT strftime('%m', Dato) as month, SUM(SamledeKmTal) as total FROM kiliometerliste WHERE strftime('%Y', Dato) = '2024' AND Initialer = :username GROUP BY month");
+                $statement->bindParam(':username', $username, PDO::PARAM_STR);
+                $statement->execute();
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 echo 'Query error: ' . $e->getMessage();
                 return [];
