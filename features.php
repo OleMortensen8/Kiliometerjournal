@@ -34,12 +34,16 @@ $TotalPerMonth = $db->getTotalPerMonth();
                     <h2 class="text-info" style="letter-spacing:0px;"><a href="features.php"><strong>KILOMETER
                                 LISTE</strong></a><br></h2>
                     <p>Her er et overblik over alle instastede kørseler</p>
+                    <?php
+                    echo $_SESSION['username'];
+                    ?>
                 </div>
                 <div>
                     <div class="table-responsive">
                         <div id="printableArea">
                             <table class="table">
-                                <?php $table->createTable($data, $TotalPerMonth);
+                                <?php
+                                $table->createTable($data, $TotalPerMonth);
                                 if ($data) {
                                     echo $table->getTable();
                                 } else {
